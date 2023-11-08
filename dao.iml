@@ -10,11 +10,10 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file://$APPLICATION_PLUGINS_DIR$/DBNavigator/lib/ext/bundled-jdbc-mysql" />
+          <root url="jar://$APPLICATION_PLUGINS_DIR$/DBNavigator/lib/ext/bundled-jdbc-mysql/mysql-connector-j-8.0.33.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-        <jarDirectory url="file://$APPLICATION_PLUGINS_DIR$/DBNavigator/lib/ext/bundled-jdbc-mysql" recursive="false" />
       </library>
     </orderEntry>
   </component>
