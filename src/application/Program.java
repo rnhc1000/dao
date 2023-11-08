@@ -25,6 +25,12 @@ public class Program {
     sellerDao.insert(newSeller);
     List<Seller> listAll = sellerDao.findAll();
     listAll.forEach(System.out::println);
+    System.out.println("+++++++ Test Five: seller update +++++++");
+    Seller seller = sellerDao.findById(1);
+    seller.setName("Ricardo Ferreira");
+    sellerDao.update(seller);
+    listAll = sellerDao.findAll();
+    listAll.forEach(System.out::println);
 
   }
 }
