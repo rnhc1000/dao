@@ -56,4 +56,14 @@ public class DB {
     }
   }
 
+  public static void closeResultSet(ResultSet resultSet) {
+    if (resultSet != null) {
+      try {
+        resultSet.close();
+      } catch (SQLException ex) {
+        throw new DbException(ex.getMessage());
+      }
+    }
+  }
+
 }
