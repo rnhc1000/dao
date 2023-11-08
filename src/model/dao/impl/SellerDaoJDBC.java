@@ -93,7 +93,48 @@ public class SellerDaoJDBC implements SellerDao {
 
   @Override
   public List<Seller> findAll() {
-    return null;
+    PreparedStatement preparedStatement = null;
+    ResultSet resultSet = null;
+    Department department = new Department();
+
+    try {
+      preparedStatement = connection.prepareStatement(
+              " SELECT seller.*,department.Name as DepName "
+                      + "FROM seller INNER JOIN department "
+                      + "ON seller.DepartmentId = department.Id "
+                      + "ORDER BY Name"
+      );
+
+      resultSet = preparedStatement.executeQuery();
+
+      List<Seller> list = new ArrayList<>();
+      Map<Integer, Department> map = new HashMap<>();
+
+      while (resultSet.next()) {
+
+        department = map.get(resultSet.getInt("DepartmentId"));
+
+        if (department == null) {
+          department = instantiateDepartment(resultSet);
+          map.put(resultSet.getInt("DepartmentId"), department);
+        }
+
+        list.add(instantiateSeller(resultSet,department));
+
+      }
+
+      return list;
+
+    } catch (SQLException e) {
+
+      throw new DbException(e.getMessage());
+
+    } finally {
+
+      DB.closeStatement(preparedStatement);
+      DB.closeResultSet(resultSet);
+
+    }
   }
 
   @Override
@@ -119,13 +160,14 @@ public class SellerDaoJDBC implements SellerDao {
       Map<Integer, Department> map = new HashMap<>();
 
       while (resultSet.next()) {
+
          department = map.get(resultSet.getInt("DepartmentId"));
+
          if (department == null) {
            department = instantiateDepartment(resultSet);
            map.put(resultSet.getInt("DepartmentId"), department);
          }
-//        Seller seller = instantiateSeller(resultSet,department);
-//        return seller;
+
          list.add(instantiateSeller(resultSet,department));
       }
 
@@ -134,6 +176,7 @@ public class SellerDaoJDBC implements SellerDao {
     } catch (SQLException e) {
 
       throw new DbException(e.getMessage());
+
     } finally {
 
       DB.closeStatement(preparedStatement);

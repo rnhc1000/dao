@@ -17,6 +17,9 @@ public class Program {
     System.out.println("+++++++ Test Two: seller findByDepartment +++++++");
     List<Seller> list = sellerDao.findByDepartment(department);
     list.forEach(System.out::println);
+    System.out.println("+++++++ Test Three: seller findAll +++++++");
+    List<Seller> listAll = sellerDao.findAll();
+    listAll.forEach(System.out::println);
 
   }
 }
