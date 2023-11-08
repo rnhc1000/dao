@@ -36,6 +36,7 @@ public class DB {
   }
 
   public static void closeConnection() {
+
     if (connection != null) {
       try {
         connection.close();
@@ -44,15 +45,15 @@ public class DB {
       }
     }
   }
-
-  public static void closeStatement(Statement st) {
-    if (st != null) {
+  
+  public static void closeStatement(Statement statement) {
+    if (statement != null) {
       try {
-        st.close();
+        statement.close();
       } catch (SQLException ex) {
         throw new DbException(ex.getMessage());
       }
     }
-
   }
+
 }
