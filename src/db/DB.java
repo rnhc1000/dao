@@ -7,7 +7,8 @@ import java.util.Properties;
 
 public class DB {
 
-  private static Connection connection  = null;
+  private static Connection connection = null;
+
   public static Connection getConnection() {
 
     if (connection == null) {
@@ -21,6 +22,7 @@ public class DB {
     }
     return connection;
   }
+
   private static Properties loadProperties() {
     try (FileInputStream fs = new FileInputStream("src/db/db.properties")) {
 
@@ -34,7 +36,8 @@ public class DB {
   }
 
   public static void closeConnection() {
-    if( connection != null ) {
+
+    if (connection != null) {
       try {
         connection.close();
       } catch (SQLException e) {
@@ -42,20 +45,11 @@ public class DB {
       }
     }
   }
+  
   public static void closeStatement(Statement statement) {
     if (statement != null) {
       try {
         statement.close();
-      } catch (SQLException ex) {
-        throw new DbException(ex.getMessage());
-      }
-    }
-  }
-
-  public static void closeResultSet(ResultSet resultSet) {
-    if (resultSet != null) {
-      try {
-        resultSet.close();
       } catch (SQLException ex) {
         throw new DbException(ex.getMessage());
       }
